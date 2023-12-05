@@ -1,0 +1,54 @@
+package week12;
+import java.util.Random;
+
+public class Character {
+	Random r = new Random();
+	
+	// 멤버변수
+	String name;
+	private int hp;
+	int maxDamage;
+	int Shield = 0;
+	
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	
+	public Character(String name, int hp, int maxDamage) {
+		this.name = name;
+		this.hp = hp;
+		this.maxDamage = maxDamage;
+	}
+	
+	public boolean attack(Character enemy) {
+		
+		if (enemy instanceof Boss) {
+			Boss b = (Boss) enemy;
+		}
+		else if (enemy instanceof Character){
+			Character c = (Character) enemy;
+		}
+		if (enemy.Shield == 1) {
+			System.out.println("적이 공격했지만 방어했습니다!");
+			enemy.Shield = 0;
+		}
+		else enemy.setHp(enemy.getHp() - (r.nextInt(maxDamage) + 1));
+		System.out.println(enemy.name + "의 현재 hp는 " + enemy.getHp() + "입니다.");
+		if (enemy.getHp() <= 0) {
+			System.out.println(enemy.name + "(이)가 쓰러졌습니다. 게임을 종료합니다.");
+			return false;
+		}
+		else return true;
+	}
+	
+	public void shield() {
+		System.out.println("적의 다음 공격을 방어합니다.");
+		Shield = 1;
+	}
+		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+}
