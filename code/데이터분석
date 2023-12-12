@@ -1,0 +1,20 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 데이터 불러오기
+file_path = '경찰청_범죄 발생 지역별 통계_20151231.csv'
+crime_data = pd.read_csv(file_path, delimiter='\t')
+
+# 데이터 확인
+print(crime_data.head())
+
+# 범죄대분류별 발생 건수 통계
+crime_category_stats = crime_data.groupby('범죄대분류').sum()
+print(crime_category_stats)
+
+# 지역별 강력범죄 발생 건수 시각화
+plt.figure(figsize=(12, 6))
+sns.barplot(x='지역', y='강력범죄', data=crime_data.melt(id_vars=['지역'], value_vars=['강력범죄']))
+plt.title('지역별 강력범죄 발생 건수')
+plt.show()
